@@ -1,0 +1,8 @@
+body {
+  background-color: #5bcefa;
+  color: white;
+  margin: 0;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

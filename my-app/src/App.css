@@ -1,0 +1,121 @@
+.App {
+  text-align: center;
+  background-color: #f5a9b8;
+  max-width: 35%;
+  margin: 20px;
+  padding: 5px;
+}
+input {
+  padding: 4px;
+  margin-left: 50px;
+  margin-bottom: 20px;
+}
+ul {
+  list-style: none;
+  margin-bottom: 10px;
+}
+li {
+  margin: 12px 0;
+}
+.deletebutton {
+  font-size: 10px;
+  margin-left: 8px;
+
+  border: none;
+  color: white;
+  border-radius: 4px;
+
+  padding-top: 4px;
+  padding-bottom: 4px;
+  
+  margin-bottom: 10px;
+
+  cursor: pointer;
+}
+.editbutton {
+  font-size: 10px;
+  margin-left: 8px;
+
+  border: none;
+  color: white;
+  border-radius: 4px;
+
+  padding-top: 4px;
+  padding-bottom: 4px;
+  
+  margin-bottom: 10px;
+
+  cursor: pointer;
+}
+.addbutton {
+  cursor: pointer;
+  border: none;
+  margin-left: 10px
+}
+.updatetextting {
+  margin-left: 30px;
+}
+.updatebutton {
+  cursor: pointer;
+  border: none;
+  margin-left: 10px;
+}
+.giffff1 {
+  position:absolute;
+  height: 50px;
+  width: 79px;
+  margin-left: 60px;
+}
+.giffff2 {
+  position:absolute;
+  height: 80px;
+  width: 60px;
+  margin-left: -124px;
+  margin-top: 146px;
+}
+.giffff3 {
+  position:absolute;
+  height: 40px;
+  width: 70px;
+  margin-left: 50px;
+  margin-top: 300px
+}
+.giffff4 {
+  position:absolute;
+  height: 100px;
+  width: 80px;
+  margin-left: -226px;
+  margin-top: 40px;
+}
+.giffff5 {
+  position:absolute;
+  height: 20px;
+  width: 50px;
+  margin-left: 183px;
+  margin-top: 20px
+}
+.giffff6 {
+  position:absolute;
+  height: 80px;
+  width: 80px;
+  margin-left: 300px;
+  margin-top: 40px;
+}
+.giffff7 {
+  position:absolute;
+  height: 50px;
+  width: 100px;
+  margin-top: 100px;
+}
+.giffff8 {
+  position:absolute;
+  height: 60px;
+  width: 60px;
+  margin-left: -100px;
+}
+.giffff9 {
+  position:absolute;
+  height: 50px;
+  width: 50px;
+  margin: 200px;
+}
