@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
 import myGif from './burunyuu.gif';
+import { db } from '/firebase.js';
+import { query, orderBy, collection, onSnapshot, addDoc, Timestamp} from "firebase/firestore";
 
 function App() {
 
@@ -36,19 +38,27 @@ function App() {
   }
 
   function editItem(id, newText, isChecked) {
-    const currentItem = items.find((item) => item.id === id)
-
-    const newItem = {
-      id: currentItem.id,
+    const index = items.findIndex((item) => item.id === id);
+  
+    if (index === -1) {
+      return;
+    }
+  
+    const updatedItem = {
+      ...items[index],
       value: newText,
-      isChecked: isChecked
+      isChecked,
     };
-    deleteItem(id);
-    console.log("newItem:", newItem);
-    setItems((oldList) => [...oldList, newItem]);
+  
+    const newItems = [...items];
+    newItems[index] = updatedItem;
+    
+    setItems(newItems);
+    console.log("newItem:", newItems);
     setUpdatedText("");
     setShowEdit(-1);
   }
+  
 
   function toggleChecked(id) {
     const newCheckedItems = { ...checkedItems };
@@ -56,10 +66,6 @@ function App() {
     setCheckedItems(newCheckedItems);
   }
   
-  function cancelEdit() {
-    setShowEdit(false);
-    setUpdatedText("");
-  }
 
  return (
   <div className="App">
@@ -81,7 +87,7 @@ function App() {
     type="text"
     placeholder='Add an item...'
     value={newItem}
-    onChange={e => setNewItem(e.target.value) }
+    onChange={e => setNewItem(e.target.value)}
   />  
 
   <button onClick={() => addItem()} className="addbutton">Add</button>
@@ -91,7 +97,7 @@ function App() {
     {items.map((item, index) => {
       return(
       <div key={index}> 
-        <li style={item.isChecked ? {textDecoration: "line-through"} : null}>
+        <li style={item.isChecked ? {textDecoration: "line-through", wordWrap: "break-word"} : {wordWrap: "break-word"}}>
         <input
           type="checkbox"
           checked={item.isChecked}
@@ -116,7 +122,7 @@ function App() {
                 value={updatedText}
                 onChange={(e) => setUpdatedText(e.target.value)}
                 />
-                <button onClick={() => editItem(item.id, updatedText)} className="updatebutton">
+                <button onClick={() => editItem(item.id, updatedText, item.isChecked)} className="updatebutton">
                   Update
                 </button>
             </div>
