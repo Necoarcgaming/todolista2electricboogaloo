@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
 import myGif from './burunyuu.gif';
-import { db } from '/firebase.js';
-import { query, orderBy, collection, onSnapshot, addDoc, Timestamp} from "firebase/firestore";
 
 function App() {
 
