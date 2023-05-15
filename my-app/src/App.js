@@ -1,39 +1,74 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import myGif from './burunyuu.gif';
+import firebase from "firebase/compat/app";
+import "firebase/compat/database";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAiM-k61s_4o9k9za6Xy4LOaA54VRc9N44",
+  authDomain: "todolistabasebased.firebaseapp.com",
+  databaseURL: "https://todolistabasebased-default-rtdb.firebaseio.com/",
+  projectId: "todolistabasebased",
+  storageBucket: "todolistabasebased.appspot.com",
+  messagingSenderId: "305697639549",
+  appId: "1:305697639549:web:9096420beddbdaf06f7514"
+};
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+const database = firebase.database();
+
 
 function App() {
 
   const [newItem, setNewItem] = useState("");
   const [items, setItems] = useState([]);
-
   const [showEdit, setShowEdit] = useState(-1);
   const [updatedText, setUpdatedText] = useState("");
   const [checkedItems, setCheckedItems] = useState({});
 
   //const [newText, setNewText] = useState("");
 
-  function addItem() {
+  useEffect(() => {
+    const itemsRef = database.ref("items/");
+  
+    itemsRef.on("value", (snapshot) => {
+      const itemsData = snapshot.val();
+      const itemsArray = [];
+  
+      for (let key in itemsData) {
+        itemsArray.push(itemsData[key]);
+      }
+  
+      setItems(itemsArray);
+    });
+  }, []);
 
+  function addItem() {
     if (!newItem) {
       alert("Enter an item.")
       return;
     }
+      
+    const item = {
+      id: Math.floor(Math.random() * 1000),
+      value: newItem,
+      isChecked: false
+    };
     
-    const item ={
-    id: Math.floor(Math.random() * 1000),
-    value: newItem,
-    isChecked: false
-  };
-  console.log("addItem:", item)
-  setItems(oldList => [...oldList, item]);
-  setNewItem("");
+    database.ref("items/" + item.id).set(item);
+  
+    setNewItem("");
+  }
+  
+
+function deleteItem(id) {
+  database.ref("items/" + id).remove();
 }
 
-  function deleteItem(id) {
-    const newArray = items.filter(item => item.id !== id);
-    setItems(newArray);
-  }
 
   function editItem(id, newText, isChecked) {
     const index = items.findIndex((item) => item.id === id);
@@ -48,11 +83,8 @@ function App() {
       isChecked,
     };
   
-    const newItems = [...items];
-    newItems[index] = updatedItem;
-    
-    setItems(newItems);
-    console.log("newItem:", newItems);
+    database.ref("items/" + id).update(updatedItem);
+  
     setUpdatedText("");
     setShowEdit(-1);
   }
